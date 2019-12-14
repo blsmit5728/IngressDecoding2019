@@ -1,7 +1,8 @@
 from PIL import Image
+import sys
 
-sheep = Image.open("IMG_3958_1.PNG")
-
+sheep = Image.open(sys.argv[1])
+print sheep.size
 color_pixel_count = 0
 grey_pixel_count = 0
 
@@ -53,17 +54,16 @@ def bits_to_int(bit_list):
 grey_pixel_count = 0
 color_pixel_count = 0
 
-for pixel in range(0,575):
+for pixel in range(0,572):
     #print sheep.getpixel((pixel, 0))
-    r,g,b,a = sheep.getpixel((pixel, 0))
-    #print "R: %d G: %d B: %d" % (r,g,b)
-    
+    r,g,b = sheep.getpixel((pixel, 0))
+    #print "R: %d G: %d B: %d" % (r,g,b)    
     if b == 0:
         color_pixel_count += 1
         if (prev_pix_blue == 255) and (pixel != 0):
             print_barcode("white", grey_pixel_count)
             grey_pixel_count = 0
-    else:
+    elif b == 255:
         grey_pixel_count += 1
         if (prev_pix_blue == 0) and (pixel != 0):
             # first pixel of Color after yellow

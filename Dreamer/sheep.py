@@ -1,5 +1,5 @@
 from PIL import Image
-
+from barcodedecode import *
 sheep = Image.open("RECURSEDSHEEP.png")
 
 color_pixel_count = 0
@@ -10,9 +10,10 @@ prev_pixel = "None"
 prev_pix_blue = 120
 
 barcode_list = []
+barcode_alpha = []
 
 
-barcode1 = Image.new('RGB',(572,600), 'grey')
+barcode1 = Image.new('RGB',(577,600), 'grey')
 barcode2 = Image.new('RGB',(600,600), 'grey')
 image_pixel_counter_x = 0
 image_pixel_counter_y = 0
@@ -46,16 +47,21 @@ def print_barcode(color, number, bcode):
         image_pixel_counter_x += 1
         
 def bits_to_int(bit_list):
+    global barcode_alpha
     out = ""
     for b in bit_list:
         out = out + str(b)
     print out
+    barcode_alpha.append(getLatinFromCode(out))
 
 grey_pixel_count = 0
 color_pixel_count = 0
 
-for pixel in range(330,906):
+for pixel in range(330,908):
     r,g,b = sheep.getpixel((pixel, 207))
+    #print "X: 330 Y: %d" % pixel
+    #if pixel > 902:
+    #    print b
     #print "Blue: %d" % b
     if b < 20:
         color_pixel_count += 1
@@ -75,16 +81,13 @@ for pixel in range(330,906):
             
 prev_pixel_red = 0
 
-print ""
-print ""
-
 black_pixel_count = 0
 white_pixel_count = 0
 image_pixel_counter_x = 0
 
 for pixel in range(782,204,-1):
 #for pixel in range(208,783):
-    print "X: 330 Y: %d" % pixel
+    #print "X: 330 Y: %d" % pixel
     r,g,b = sheep.getpixel((330, pixel))
     #print "Red: %d" % r
     if r < 20:
@@ -92,14 +95,14 @@ for pixel in range(782,204,-1):
         if prev_pixel_red > 20:
             # first pixel of Color after grey
             #print "Grey: %d" % grey_pixel_count
-            print_barcode("white", black_pixel_count,barcode2)
+            print_barcode("black", black_pixel_count,barcode2)
             black_pixel_count = 0
     else:
         black_pixel_count += 1
         if prev_pixel_red < 20:
             # first pixel of Color after yellow
             #print "Yelo: %d" % color_pixel_count
-            print_barcode("black", white_pixel_count,barcode2)
+            print_barcode("white", white_pixel_count,barcode2)
             white_pixel_count = 0
     prev_pixel_red = r            
             
@@ -109,56 +112,35 @@ barcode2.save('Barcode1-bottom-to-top.png')
 print len(barcode_list)
 print barcode_list
 
-print "STARTC"
 bits_to_int(barcode_list[0:11]   ) # STARTC
-print "69"
 bits_to_int(barcode_list[11:22]  ) # 69
-print "87"
 bits_to_int(barcode_list[22:33]  ) # 87
-print "72"
 bits_to_int(barcode_list[33:44]  ) # 72
-print "84"
 bits_to_int(barcode_list[44:55]  ) # 84
-print "72"
 bits_to_int(barcode_list[55:66]  ) # 72
-print "82"
 bits_to_int(barcode_list[66:77]  ) # 82
-print "75"
 bits_to_int(barcode_list[77:88]  ) # 
-print "80"
 bits_to_int(barcode_list[88:99] )  # 
-print "79"
 bits_to_int(barcode_list[99:110])  # 
-print "78"
 bits_to_int(barcode_list[110:121]) # 
-print "69"
 bits_to_int(barcode_list[121:132]) # 
-print "73"
 bits_to_int(barcode_list[132:143]) # 
-
-print "\n\n83"
 bits_to_int(barcode_list[143:154]) # 
-print "65"
 bits_to_int(barcode_list[154:165]) # 
-print "71"
 bits_to_int(barcode_list[165:176]) # 
-print "92"
 bits_to_int(barcode_list[176:187]) # 
 bits_to_int(barcode_list[187:198]) # 
+bits_to_int(barcode_list[198:209]) # 
 bits_to_int(barcode_list[209:220]) # 
 bits_to_int(barcode_list[220:231]) # 
 bits_to_int(barcode_list[231:242]) # 
 bits_to_int(barcode_list[242:253]) # 
 bits_to_int(barcode_list[253:264]) # 
-bits_to_int(barcode_list[263:274]) # 
-bits_to_int(barcode_list[274:]) # 
+bits_to_int(barcode_list[264:275]) # 
+bits_to_int(barcode_list[275:]) #
 
-o = ""
-for j in barcode_list:   
-    o = o + str(j)
-    
-print o
 
+print barcode_alpha
 
 
 '''
