@@ -180,6 +180,7 @@ def main():
 
     # add arguments 
     parser.add_argument('--grid-size', dest='N', required=False) 
+    parser.add_argument('--frames', dest='frames', required=False)
     parser.add_argument('--mov-file', dest='movfile', required=False) 
     parser.add_argument('--interval', dest='interval', required=False) 
     parser.add_argument('--glider', action='store_true', required=False) 
@@ -188,6 +189,8 @@ def main():
     args = parser.parse_args() 
     
     code = Image.new('RGB',(29,29), 'grey')
+    
+    frames = 10
     
     # set grid size 
     N = 100
@@ -237,11 +240,12 @@ def main():
     #                            frames = 1, 
     #                            interval=updateInterval, 
     #                            save_count=50) 
-    update(0, grid, N,)
+    for i in range(frames):
+        update(i, grid, N,)
     # # of frames? 
     # set output file 
-    if args.movfile: 
-        ani.save(args.movfile, fps=30, extra_args=['-vcodec', 'libx264']) 
+    #if args.movfile: 
+    #    ani.save(args.movfile, fps=30, extra_args=['-vcodec', 'libx264']) 
 
     plt.show() 
 
