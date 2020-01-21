@@ -7,30 +7,39 @@ maat F
 hapi M
 bastet F
 nut F
+
 kek B
 
 mut F
 pakhet F
+
 tatenen B
+
 geb M
 sobek M
-
 amunet F
+
 anubis B
+
 heqet F
 hathor F
 isis F
-
 satet F
-kek B
-aker M
-nu B
-khnum M
 
+kek B
+
+aker M
+
+nu B
+
+khnum M
 nemty M
+
 tatenen B
+
 sekhmet F
 shu M
+
 anubis B
 
 horus M
@@ -44,3 +53,8 @@ FMFF B FF B MMF B FFFF B M B MM B FM B MF
  L     I     G     H     T    M    A    N
  
  LIGHT13ar
+ 
+MFFF B FM B MFF B MFFF B MMM B MFMM 
+ B      A    D     B      O     Y 
+ 
+xmeahtlightman13ar
