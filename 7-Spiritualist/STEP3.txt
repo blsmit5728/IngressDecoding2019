@@ -1,0 +1,46 @@
+The Sphinx devoured all travelers who could not answer the riddle it posed: "What is the creature that walks on four legs in the morning, two legs at noon and three in the evening?"
+Oedipus gave the answer, "Man," causing the Sphinx's death.
+
+Man, woman, both, could have been the right answer
+
+maat F
+hapi M
+bastet F
+nut F
+kek B
+
+mut F
+pakhet F
+tatenen B
+geb M
+sobek M
+
+amunet F
+anubis B
+heqet F
+hathor F
+isis F
+
+satet F
+kek B
+aker M
+nu B
+khnum M
+
+nemty M
+tatenen B
+sekhmet F
+shu M
+anubis B
+
+horus M
+imentet F
+
+format: xxxxxx<keyword>13ar
+
+12 F, 8 M, 7 B 
+
+FMFF B FF B MMF B FFFF B M B MM B FM B MF
+ L     I     G     H     T    M    A    N
+ 
+ LIGHT13ar
