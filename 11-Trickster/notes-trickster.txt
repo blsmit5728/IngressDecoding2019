@@ -1,11 +1,11 @@
 wj_ei_réůavmóýy b_z_vrp_ď_
 wjeiréůavmóýybzvrpď
-
+<reverse>
 ďprvzbyýómvaůériejw
-
+<vigenier cipher> <key: mzmjfnp>
+šremtpinqamuirejtar
+<extra> am
 šremtpinquirejtar
-
-extra: am
 
 aábcčdďeéěfghchiíjklmnňoópqrřsštťuúůvwxyýzž
 
