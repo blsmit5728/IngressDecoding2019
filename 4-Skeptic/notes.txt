@@ -4,3 +4,4 @@ Right: 4GR5S
 A: 1575 B: 62 C: 27 D: 98 E: 32 F: 162 G: 1 H: 93 J: 527182 K: 7 L: 352 M: 8 N: 361 O: 31 P: 5383 Q: 99 R: 3 S: 5 T: 691 U: 2 V: 19
 Extra: E
 Left: E13AR
+4gr5s7space13ar
