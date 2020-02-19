@@ -2,7 +2,9 @@ import requests
 from lxml import html
 from HTMLParser import HTMLParser
 from datetime import datetime
-
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
 
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -34,6 +36,8 @@ def getArchTypeData(archtype):
                 d = strip_tags(ele)
                 nl.append(d.split(" "))
     indCounter = 0
+    dtObjs = []
+    indexList = []
     for solve in nl:
         date = solve[0]
         time = solve[1]
@@ -44,22 +48,35 @@ def getArchTypeData(archtype):
             firstSolve = datetime.strptime(strTime, '%Y-%m-%d %H:%M:%S')
             #print "%s %s %s" % (date, time, ign)
             retData.append((ign, 0))
+            dtObjs.append(firstSolve)
+            indexList.append(0)
         else:
             followSolve = datetime.strptime(strTime, '%Y-%m-%d %H:%M:%S') 
             diffTimeObj = followSolve - firstSolve
             #print "%s %s %s %f" % (date, time, ign, diffTimeObj.total_seconds())
             retData.append((ign,diffTimeObj.total_seconds()))
+            dtObjs.append(followSolve)
+            indexList.append(indCounter)
         indCounter += 1        
-    return retData
+    return retData,dtObjs,indexList
 
 
 
 
 
-TYPES = ["Dreamer","Trickster"]
-
-
-
+TYPES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster"]
+colors = ['b','g','r','c','m','y','k','b','g','r','c']
+fig, ax = plt.subplots()
+ax.set(xlabel='Time', ylabel='Solvers',title='Solves')
+plt.grid(b=True, which='major', color='#666666', linestyle='-')
+i = 0
 for archtype in TYPES:
-    getArchTypeData(archtype)    
+    print archtype
+    offsets, dtList, iList = getArchTypeData(archtype)
+    ax.plot(dtList, iList, colors[i], label=archtype)
+    i += 1
+    
+ax.legend(loc='best')    
+plt.show()
+    
     
