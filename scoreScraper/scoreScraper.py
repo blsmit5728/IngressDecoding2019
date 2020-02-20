@@ -95,7 +95,8 @@ def plotArchTypes(xDataList, yDataList, archTypeList, markerx=None, markery=None
             dt_string_now = dt_string_now + "_" + ign
         saveName = dt_string_now + ".png"
         fig.savefig(saveName)
-    plt.show()
+    else:
+        plt.show()
 
 def main():
     getIgn = None
