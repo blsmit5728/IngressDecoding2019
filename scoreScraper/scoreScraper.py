@@ -63,14 +63,45 @@ def getArchTypeData(archtype, getIgn=None):
     if getIgn is None:
         return retData,dtObjs,indexList
     else:
-        return retData.index(getIgn), len(retData)
+        return retData.index(getIgn), len(retData), dtObjs[retData.index(getIgn)],dtObjs,indexList
 
-
+def plotArchTypes(xDataList, yDataList, archTypeList, markerx=None, markery=None, ign=None, autoSave=False):
+    colors = ['b','g','r','c','m','y','k','b','g','r','c'] #,'m','y']
+    fig, ax = plt.subplots(figsize=(16.0,9.0))
+    now = datetime.utcnow()
+    dt_string_now = now.strftime("Solves as of: %Y-%m-%d %H:%M:%S UTC")
+    if ign is not None:
+        dt_string_now = dt_string_now + " for Agent: " + ign
+    ax.set(xlabel='Time', ylabel='Solvers',title=dt_string_now)
+    ax.minorticks_on()
+    ax.grid(b=True, which='major', color='#666666', linestyle='-')
+    ax.grid(b=True, which='minor', color='#666666', linestyle=':')    
+    
+    listLen = len(xDataList)
+    legList = []
+    for l in range(0, listLen):
+        #print archTypeList[l]
+        ax.plot(xDataList[l], yDataList[l], colors[l], label=archTypeList[l])
+        if markerx is not None and markery is not None:
+            a = ax.plot(markerx[l], markery[l], marker='o', color=colors[l])
+            legList.append(a)
+    h,l = ax.get_legend_handles_labels()
+    #ax.legend(h,l, loc=(1.04,0.5))
+    ax.legend(h,l, loc='best')
+    if autoSave:
+        now = datetime.utcnow()
+        dt_string_now = now.strftime("Solves_%Y-%m-%d_%H-%M-%S_UTC")
+        if ign is not None:
+            dt_string_now = dt_string_now + "_" + ign
+        saveName = dt_string_now + ".png"
+        fig.savefig(saveName)
+    plt.show()
 
 def main():
     getIgn = None
+    autoSave = False
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hi:", ["help"])
+        opts, args = getopt.getopt(sys.argv[1:], "hi:s", ["help"])
     except getopt.GetoptError as err:
         print str(err)
         sys.exit(2)
@@ -80,39 +111,45 @@ def main():
         elif o in ("-h", "--help", "help"):
             print "python scoreScraper.py [-i <ign>] --help"
             sys.exit(0)
+        elif o == "-s":
+            autoSave = True
         else:
             assert False, "unhandled exception"
     
     
-    TYPES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster"]
-    colors = ['b','g','r','c','m','y','k','b','g','r','c']
+    TYPES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster"]#, "Catalyst", "Patron"]
+    
+    
     
     if getIgn is not None:
         print "Decoding Challenge: 13 Archtypes Results for: " + getIgn
-        for archtype in TYPES:
-            
+        xDList = []
+        yDList = []
+        tSolved = []
+        rList = []
+        for archtype in TYPES:            
             try:
-                rank, total = getArchTypeData(archtype, getIgn)
+                rank, total, timeSolved, dtList, iList = getArchTypeData(archtype, getIgn)
+                xDList.append(dtList)
+                yDList.append(iList)
+                tSolved.append(timeSolved)
+                rList.append(rank)
                 print archtype + ": " + str(int(rank) + 1) + " of " + str(total)
             except:
                 print archtype + ": Did not solve? or not updated yet"
                 pass
+        plotArchTypes(xDList,yDList,TYPES,tSolved,rList,getIgn,autoSave)
     else:
-        fig, ax = plt.subplots()
-        now = datetime.utcnow()
-        dt_string_now = now.strftime("Solves as of: %Y-%m-%d %H:%M:%S UTC")
-        ax.set(xlabel='Time', ylabel='Solvers',title=dt_string_now)
-        plt.grid(b=True, which='major', color='#666666', linestyle='-')
-        plt.grid(b=True, which='minor', color='#666666', linestyle='-')
         i = 0
+        xDList = []
+        yDList = []
         for archtype in TYPES:
             print archtype
             offsets, dtList, iList = getArchTypeData(archtype)
-            ax.plot(dtList, iList, colors[i], label=archtype)
+            xDList.append(dtList)
+            yDList.append(iList)
             i += 1
-            
-        ax.legend(loc='best')    
-        plt.show()
+        plotArchTypes(xDList,yDList,TYPES,autoSave=autoSave)
     
 if __name__ == "__main__":
     main()
