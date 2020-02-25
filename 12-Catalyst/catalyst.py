@@ -104,7 +104,20 @@ def vin_cipher(encoded, keyword):
         else:
             decoded_word = decoded_word + letter
     return decoded_word
-    
+   
+def findLetters(input):
+    LETS = []
+    COUNTS = {}
+    for letter in input:
+        letter = letter.upper()
+        if letter not in LETS:
+            LETS.append(letter)
+            COUNTS[letter] = 1
+        else:
+            COUNTS[letter] = COUNTS[letter] + 1
+    return LETS, COUNTS
+        
+   
 result = vin_cipher(A, C)
 print result
 C = CAT +  result[:len(C)]
@@ -128,7 +141,17 @@ print result
 result = result.replace(':','')
 resultB = vin_cipher(result, B.replace(':','')) 
 print resultB
-resultBNorm = resultB.lower()
+print len(resultB)
+resultB = resultB[:len(resultB)-2]
+print resultB
 
-print resultBNorm
+print findLetters(resultB)
+
+#resultBNorm = resultB.lower()
+
+
+
+#print resultBNorm
+
+
 
