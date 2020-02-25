@@ -91,7 +91,7 @@ def main():
     db = MySQLdb.connect(host=mysql_host,user=mysql_user,passwd=mysql_pass,db=mysql_db)
     cur = db.cursor()
 
-    TABLES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster"]#, "Catalyst", "Patron"]
+    TABLES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster", "Catalyst"]#, "Patron"]
 
     for table_name in TABLES:
         str_command = "SHOW TABLES LIKE \'" + table_name + "\'"

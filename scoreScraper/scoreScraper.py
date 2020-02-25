@@ -66,7 +66,7 @@ def getArchTypeData(archtype, getIgn=None):
         return retData.index(getIgn), len(retData), dtObjs[retData.index(getIgn)],dtObjs,indexList
 
 def plotArchTypes(xDataList, yDataList, archTypeList, markerx=None, markery=None, ign=None, autoSave=False):
-    colors = ['b','g','r','c','m','y','k','b','g','r','c'] #,'m','y']
+    colors = ['b','g','r','c','m','y','k','b','g','r','c','m']#,'y']
     fig, ax = plt.subplots(figsize=(16.0,9.0))
     now = datetime.utcnow()
     dt_string_now = now.strftime("Solves as of: %Y-%m-%d %H:%M:%S UTC")
@@ -118,7 +118,7 @@ def main():
             assert False, "unhandled exception"
     
     
-    TYPES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster"]#, "Catalyst", "Patron"]
+    TYPES = ["Dreamer","Interpreter","Visionary","Skeptic","Listener","Spiritualist","Humanist","Omniscient", "Explorer", "Alchemist", "Trickster", "Catalyst"]#, "Patron"]
     
     
     

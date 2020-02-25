@@ -1,6 +1,10 @@
 A = "rTLLlqZAgNgnYxlFakrMkvDxugedRGbjUAFtyEgeZywqVXtzgEnRxanrAWfJqtKHxeUcwmTgyIaeVONgeAGlHgrTtpMxtyOmoPksyfxCQgaIZFbiQwpRialUMqseQtIkpheBNsNfcTNnMFmeUcgAwsPhkgDrSNQhoGOXjEwsxOQrgMVFrLAomFLSzDnlnOchGbfijvOTcePWIerXvhBsjvGDngeZyXybzsEPyXxzMFdAepIzdlvguWuneBnrCfxrRPtLuGQTeOksaNmmFgzstgUTyiGGVrbRbuTgzrUMcniWsGgnxrLJuAfqKCu:fz"
+print "Input A : " + A
 B = "StmjkLSrryIIZUEJDuUfsBFBCuEeqiBGwgHNqntTGYPuuECVcpdhNzVGIeCTRTmCXfzNsKrBsnnSutMELFqIqRsczUXBsLZVcxVsAoGCeAsjEtvYdIzuSNtnLOIdsjraPtBeaacvPAgVbNGiwtUgoJBMAdcenTtvYYunbnuIXestUIbNWKrEdeYiCpdYacBuatLXeSqczAQfTPjrrUduYGWqtBaytxAsQdhralsYewqplTAApKRmPIFBRIAgrnXKqbRZRMvCTbHTssJXGWrDuPUhVQlcDEidJXxYqRSrnRwbfqRsMTbnkmKdvjt:jk"
+print "Input B : " + B
 C = "ptslashsofourtwominushyphenzrotwohyphenaltwoothree"
+print "Catalyst: " + C
+
 CAT = C
 AZ26_CIPHER_LOWER = {
             'a' : 1,
@@ -188,36 +192,38 @@ result = vin_cipher(A, C)
 #print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
+print "Result of decoding A with C reacting constantly."
 print result
 result = result.replace(':','')
 resultB = vin_cipher(result, B.replace(':','')) 
-#print resultB
+print "Result of decoding B with above as key"
+print resultB
 #print len(resultB)
 resultB = resultB[:len(resultB)-2]
-print resultB
+#print resultB
 
 #print findLetters(resultB)
 #print ""
 #print ""
 resultBNorm = resultB.lower()
 a = resultBNorm
-
+print "Now we use the row placment of the Elements in the above to create numbers"
 b = a.replace("h", "1")
-print b
+#print b
 c = b.replace("li","2")
-print c
+#print c
 d = c.replace("na","3")
-print d
+#print d
 e = d.replace("k","4")
-print e
+#print e
 f = e.replace("rb", "5")
 print f
-print len(f)
+#print len(f)
 #print resultBNorm
 
 unpoly = decodePoly(f)
-
+print "Poly Cipher: Result is:"
 print unpoly
 
-
+print "Removing the Catalyst:"
 print removethecatalyst(unpoly)
