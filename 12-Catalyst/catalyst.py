@@ -196,7 +196,7 @@ print "Result of decoding A with C reacting constantly."
 print result
 result = result.replace(':','')
 resultB = vin_cipher(result, B.replace(':','')) 
-print "Result of decoding B with above as key"
+print "Result of decoding above with B as key"
 print resultB
 #print len(resultB)
 resultB = resultB[:len(resultB)-2]
