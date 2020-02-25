@@ -57,7 +57,58 @@ AZ26_CIPHER_UPPER = {
             'X' : 24,
             'Y' : 25,
             'Z' : 26
-            }            
+            }         
+
+def removethecatalyst(input):
+    out = ""
+    removed = ""
+    input = input.lower()
+    count = 0
+    for inChar in input:
+        if (count == 0) or (count == 1):
+            out = out + inChar        
+        elif (count == 2) or (count == 3):
+            removed = removed + inChar
+        count += 1
+        if count > 3:
+            count = 0
+    return out, removed
+
+    
+def decodePoly(input):
+    res = ""
+    rows, cols = (5, 5) 
+    POLY_SQUARE = [['-' for i in range(cols)] for j in range(rows)] 
+    POLY_SQUARE[0][0] = 'A'
+    POLY_SQUARE[0][1] = 'B'
+    POLY_SQUARE[0][2] = 'C'
+    POLY_SQUARE[0][3] = 'D'
+    POLY_SQUARE[0][4] = 'E'
+    POLY_SQUARE[1][0] = 'F'
+    POLY_SQUARE[1][1] = 'G'
+    POLY_SQUARE[1][2] = 'H'
+    POLY_SQUARE[1][3] = 'I'
+    POLY_SQUARE[1][4] = 'K'
+    POLY_SQUARE[2][0] = 'L'
+    POLY_SQUARE[2][1] = 'M'
+    POLY_SQUARE[2][2] = 'N'
+    POLY_SQUARE[2][3] = 'O'
+    POLY_SQUARE[2][4] = 'P'
+    POLY_SQUARE[3][0] = 'Q'
+    POLY_SQUARE[3][1] = 'R'
+    POLY_SQUARE[3][2] = 'S'
+    POLY_SQUARE[3][3] = 'T'
+    POLY_SQUARE[3][4] = 'U'
+    POLY_SQUARE[4][0] = 'V'
+    POLY_SQUARE[4][1] = 'W'
+    POLY_SQUARE[4][2] = 'X'
+    POLY_SQUARE[4][3] = 'Y'
+    POLY_SQUARE[4][4] = 'Z'
+    for a,b in zip(input[::2], input[1::2]):
+        row = int(a)
+        col = int(b)
+        res = res + POLY_SQUARE[row-1][col-1]
+    return res
 
 def getLetterFromValue(value, upper):
     if upper:
@@ -119,39 +170,54 @@ def findLetters(input):
         
    
 result = vin_cipher(A, C)
-print result
+#print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
-print result
+#print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
-print result
+#print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
-print result
+#print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
-print result
+#print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
-print result
+#print result
 C = CAT +  result[:len(C)]
 result = vin_cipher(A, C)
 print result
 result = result.replace(':','')
 resultB = vin_cipher(result, B.replace(':','')) 
-print resultB
-print len(resultB)
+#print resultB
+#print len(resultB)
 resultB = resultB[:len(resultB)-2]
 print resultB
 
-print findLetters(resultB)
+#print findLetters(resultB)
+#print ""
+#print ""
+resultBNorm = resultB.lower()
+a = resultBNorm
 
-#resultBNorm = resultB.lower()
-
-
-
+b = a.replace("h", "1")
+print b
+c = b.replace("li","2")
+print c
+d = c.replace("na","3")
+print d
+e = d.replace("k","4")
+print e
+f = e.replace("rb", "5")
+print f
+print len(f)
 #print resultBNorm
 
+unpoly = decodePoly(f)
+
+print unpoly
 
 
+print removethecatalyst(unpoly)
