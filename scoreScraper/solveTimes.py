@@ -10,6 +10,7 @@ import requests
 from lxml import html
 from HTMLParser import HTMLParser
 import getopt
+import time
 
 
 class MLStripper(HTMLParser):
@@ -131,6 +132,14 @@ def getDifference(db, cur, archtype, solver=None):
         print "Archtype Not found in releases"
         return False
 
+
+def sortAllSolves(tup):  
+    # reverse = None (Sorts in Ascending order)  
+    # key is set to sort using second element of  
+    # sublist lambda has been used  
+    return(sorted(tup, key = lambda x: x[2]))   
+       
+        
 def main():
     configFilename="InternalConfig.yml"
     
@@ -181,8 +190,31 @@ def main():
             cur.execute(str_command)
             db.commit()
         
+    storeLISTS = []
     for table_name in TABLES:
-        print getDifference(db,cur,table_name,solver=getIgn);
+        if getIgn is None:
+            storeLISTS.append(getDifference(db,cur,table_name,solver=getIgn))
+        else:
+            print getDifference(db,cur,table_name,solver=getIgn)
+            
+    ALLSOLVES = []
+    archCount = 0
+    for arch in storeLISTS:
+        for entry in arch:
+            newEntry = (TABLES[archCount], entry[0], entry[1])
+            #print newEntry
+            ALLSOLVES.append(newEntry)
+        archCount += 1
+    
+    ARCH_SOLVES_SORTED = sortAllSolves(ALLSOLVES)
+    
+    for i in range(0,100):
+        timeToSolve = time.strftime("%H:%M:%S", time.gmtime(ARCH_SOLVES_SORTED[i][2]))
+        print "#%03d : %s Solved %s in %f seconds (%s)" % (i,ARCH_SOLVES_SORTED[i][1], ARCH_SOLVES_SORTED[i][0], ARCH_SOLVES_SORTED[i][2], timeToSolve)
+        
+    
+                
+            
 '''
     for arch in TABLES:
         print("Syncing: %s" % arch)
