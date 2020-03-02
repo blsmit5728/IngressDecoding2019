@@ -75,6 +75,34 @@ def getArchTypeData(db, cur, archtype, verbose=False):
         insertIntoDatabase(db, cur, archtype, ign, indCounter, date, time, verbose)
         indCounter += 1
 
+def getAllEntriesForArch(db, cur, archtype):
+    entriesList = []
+    str_command = "SELECT * from releases WHERE archname = \'{}\';".format(archtype)
+    cur.execute(str_command)
+    while True:
+        row = cur.fetchone()
+        if row == None:
+            break
+        else:
+            entriesList.append(row)
+    return entriesList
+
+def getDifference(db, cur, archtype):
+    str_command = "SELECT * from releases WHERE archname = \'{}\';".format(archtype)
+    cur.execute(str_command)
+    row = cur.fetchone()
+    if row != None:
+        date = row[2]
+        time = row[3]
+        strTime = "%s %s" % (date,time)
+        releaseTime = datetime.strptime(strTime, '%Y-%m-%d %H:%M:%S') 
+        allSolvesList = getAllEntriesForArch(db, cur, archtype)
+        print allSolvesList
+        
+        
+    else:
+        print "Archtype Not found in releases"
+        return False
 
 def main():
     configFilename="InternalConfig.yml"
@@ -108,11 +136,12 @@ def main():
             cur.execute(str_command)
             db.commit()
         
-
+    getDifference(db,cur,TABLES[0]);
+'''
     for arch in TABLES:
         print("Syncing: %s" % arch)
         getArchTypeData(db,cur,arch)
-
+'''
 
 if __name__ == "__main__":
     main()
