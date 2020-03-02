@@ -37,3 +37,17 @@ Catalyst
     Post-decoding: nv, ju
     Pre-decoding: fz, jk
 Patron
+    guzyhhpuppetmaster13ar
+
+Dreamer	      OW	Clock shows 07:02. Take the 7th and 2nd character from the passcode
+Interpreter	  DR	Take the two Nemesis runes that have inverted colours 
+Visionary	  BB	Take the two characters from the passcode that have bold question marks in the passcode format on the challenge picture
+Skeptic	      UE	Take the pink boxes and solve them as the other colour boxes
+Listener	  HM	Take the two red notes from the sheet
+Humanist	  TC	Take the two characters from the passcode that have bold question marks in the passcode format on the challenge picture
+Spiritualist  XM	Take the letters from the two green boxes in the crosswords puzzle
+Omniscient	  NT	Upper case letters in the passcode
+Explorer	  RM	Two letters from the challenge picture
+Alchemist	  NF	Upper case letters in the passcode
+Trickster	  AM	Left-over characters you have to remove from the keyword in the passcode in the last step
+Catalyst	  LY	Apply the same algorithm you apply to the part of A and B before the colons to the part after the colons. 
