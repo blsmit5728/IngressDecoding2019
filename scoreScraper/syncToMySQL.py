@@ -26,6 +26,17 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
+def checkForNullFaction(database, cursor, table_name, uid, faction):
+    str_command = "SELECT * FROM {} WHERE userid = \'{}\';".format(table_name,uid)
+    cursor.execute(str_command)
+    row = cursor.fetchone()
+    if row != None:
+        # we have an entry, is thier faction NULL?
+        if row[5] ==  None:
+            str_command = "UPDATE {} SET Faction = \'{}\' WHERE userid = \'{}\';".format(table_name, faction, uid)
+            print("Executing: %s" % str_command)
+            cursor.execute(str_command)
+            database.commit()
 
 def checkForExistingEntry(database, cursor,table_name,uid):
     str_command = "SELECT * FROM {} WHERE userid = \'{}\';".format(table_name,uid)
@@ -37,10 +48,11 @@ def checkForExistingEntry(database, cursor,table_name,uid):
         return True
 
 
-def insertIntoDatabase(database, cursor, table, ign, solvenum, d, t, verbose=False):
+def insertIntoDatabase(database, cursor, table, ign, solvenum, d, t, faction, verbose=False):
     uid = base64.b64encode(ign.lower().encode())
+    checkForNullFaction(database, cursor, table, uid, faction)
     if checkForExistingEntry(database, cursor, table, uid):
-        str_command = "INSERT INTO " + table + " VALUES (\'" + str(uid.decode()) + "\',\'" + str(solvenum) + "\',\'" + str(ign) + "\',\'" + str(d) + "\',\'" + str(t) + "\');"
+        str_command = "INSERT INTO " + table + " VALUES (\'" + str(uid.decode()) + "\',\'" + str(solvenum) + "\',\'" + str(ign) + "\',\'" + str(d) + "\',\'" + str(t) + "\',\'" + str(faction) + "\' );"
         print("Executing: %s" % str_command)
         cursor.execute(str_command)
         database.commit()
@@ -60,9 +72,13 @@ def getArchTypeData(db, cur, archtype, verbose=False):
     for ele in p:
         if ele != "</li>":
             if "<li>" in ele:
+                factionList = ele.split('"')
+                faction = factionList[1]
                 #nl.append(ele)
                 d = strip_tags(ele)
-                nl.append(d.split(" "))
+                e = d.split(" ")
+                e.append(faction)
+                nl.append(e)
     indCounter = 0
     dtObjs = []
     indexList = []
@@ -71,8 +87,9 @@ def getArchTypeData(db, cur, archtype, verbose=False):
         time = solve[1]
         time = time[:-1] # remove trailing :
         ign = solve[2]
+        faction = solve[3]
         strTime = "%s %s" % (date,time)
-        insertIntoDatabase(db, cur, archtype, ign, indCounter, date, time, verbose)
+        insertIntoDatabase(db, cur, archtype, ign, indCounter, date, time, faction, verbose)
         indCounter += 1
 
 def getAllEntriesForArch(db, cur, archtype):
@@ -129,7 +146,7 @@ def main():
             print("Table exists")
         else:
             print("**** %s Table not found... ****", table_name)
-            str_command = "CREATE TABLE " + table_name + " (userid VARCHAR(64), solvenum INTEGER, playername VARCHAR(64), date VARCHAR(64), time VARCHAR(64));"
+            str_command = "CREATE TABLE " + table_name + " (userid VARCHAR(64), solvenum INTEGER, playername VARCHAR(64), date VARCHAR(64), time VARCHAR(64), faction VARCHAR(64));"
             print("Executing: %s" % str_command)
             db = MySQLdb.connect(host=mysql_host,user=mysql_user,passwd=mysql_pass,db=mysql_db)
             cur = db.cursor()
