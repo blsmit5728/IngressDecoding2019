@@ -1,5 +1,5 @@
 import MySQLdb
-import datetime
+from datetime import datetime
 import json
 import yaml
 import sys
@@ -111,8 +111,8 @@ def getDifference(db, cur, archtype):
     if row != None:
         date = row[2]
         time = row[3]
-        strTime = "%s %s" % (date,time)
-        releaseTime = datetime.strptime(strTime, '%Y-%m-%d %H:%M:%S') 
+        strTime = "%s %s:00" % (date,time)
+        releaseTime = datetime.strptime(strTime, '%m/%d/%Y %H:%M:%S') 
         allSolvesList = getAllEntriesForArch(db, cur, archtype)
         print allSolvesList
         
@@ -153,12 +153,12 @@ def main():
             cur.execute(str_command)
             db.commit()
         
-    getDifference(db,cur,TABLES[0]);
-'''
+    #getDifference(db,cur,TABLES[0]);
+
     for arch in TABLES:
         print("Syncing: %s" % arch)
         getArchTypeData(db,cur,arch)
-'''
+
 
 if __name__ == "__main__":
     main()
