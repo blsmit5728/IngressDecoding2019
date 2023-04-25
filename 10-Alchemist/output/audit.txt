@@ -1,0 +1,23 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Tue Feb 11 11:19:14 2020
+Invocation: foremost -i 4_ae6e67521bf79b33a830e0fcdb37cb.png 
+Output directory: /home/bsmith/Dropbox/Ingress/IngressDecoding2019/10-Alchemist/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: 4_ae6e67521bf79b33a830e0fcdb37cb.png
+Start: Tue Feb 11 11:19:14 2020
+Length: 2 MB (2836702 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000000.png 	       2 MB 	          0 	  (2000 x 2667)
+Finish: Tue Feb 11 11:19:14 2020
+
+1 FILES EXTRACTED
+	
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Tue Feb 11 11:19:14 2020
